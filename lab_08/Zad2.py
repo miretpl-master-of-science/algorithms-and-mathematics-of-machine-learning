@@ -2,10 +2,6 @@ from numpy import ndarray, sin, arange, pi, meshgrid
 from matplotlib.pyplot import subplots, clf, contourf, contour, show
 from matplotlib.animation import FuncAnimation
 
-import matplotlib.pyplot as plt
-import matplotlib.animation
-import numpy as np
-
 
 def f(x: ndarray, y: ndarray, t: int) -> ndarray:
     return 0.5 * sin(x ** 3) + 0.25 * sin((y - t * 0.05) ** 2)
