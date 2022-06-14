@@ -1,19 +1,19 @@
-import numpy as np
-import matplotlib.pyplot as plt
+from numpy import load
+from matplotlib.pyplot import subplots, xlabel, ylabel, scatter, show
 from matplotlib.image import imread
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
 
 with open('dataset/animals.npz', 'rb') as f:
-    animals = np.load(f)['animals']
+    animals = load(f)['animals']
 
 weight, height = animals[:, 2].astype(float), animals[:, 3].astype(int)
 images = [imread(path) for path in animals[:, 4]]
 
-fig, ax = plt.subplots(figsize=(10, 5))
-plt.xlabel('weight')
-plt.ylabel('height')
-scat = plt.scatter(weight, height)
+fig, ax = subplots(figsize=(10, 5))
+xlabel('weight')
+ylabel('height')
+scat = scatter(weight, height)
 
 for i, image in enumerate(images):
     box = OffsetImage(image, zoom=0.5)
@@ -41,7 +41,7 @@ def hover(event):
         ws = -1 * (event.x > w / 2) + (event.x <= w / 2)
         hs = -1 * (event.y > h / 2) + (event.y <= h / 2)
 
-        ann.xybox = (120*ws, -80*hs)
+        ann.xybox = (120 * ws, -80 * hs)
         ann.set_visible(True)
         ann.xy = (weight[ind], height[ind])
 
@@ -53,4 +53,4 @@ def hover(event):
 
 
 fig.canvas.mpl_connect('motion_notify_event', hover)
-plt.show()
+show()
